@@ -41,10 +41,14 @@ void APP::DoFrame()
 	}*/
 
 
-	const float t = timer.Peek();
+	/*const float t = timer.Peek();
 	std::ostringstream oss;
 	oss << "Time elapsed :" << t;
-	wnd.SetTitle(oss.str());
+	wnd.SetTitle(oss.str());*/
+	wnd.Gfx().ClearBuffer(1, 0, 0);
+	wnd.Gfx().EndFrame();
 
 }
+
+
 

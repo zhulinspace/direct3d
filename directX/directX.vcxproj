@@ -85,7 +85,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEBUG;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -161,6 +161,9 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="chillException.cpp" />
     <ClCompile Include="ChillTimer.cpp" />
+    <ClCompile Include="dxerr.cpp" />
+    <ClCompile Include="DxgiInfoManager.cpp" />
+    <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="KeyBoard.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -172,6 +175,10 @@
     <ClInclude Include="chillException.h" />
     <ClInclude Include="ChillTimer.h" />
     <ClInclude Include="ChillWin.h" />
+    <ClInclude Include="ChillWRL.h" />
+    <ClInclude Include="dxerr.h" />
+    <ClInclude Include="DxgiInfoManager.h" />
+    <ClInclude Include="Graphic.h" />
     <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="resource.h" />
@@ -183,6 +190,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="chili.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DXGetErrorDescription.inl" />
+    <None Include="DXGetErrorString.inl" />
+    <None Include="DXTrace.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

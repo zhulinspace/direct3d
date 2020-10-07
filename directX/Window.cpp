@@ -71,7 +71,7 @@ Window::Window(int width, int height, const char* name)
 	if (hWnd == nullptr)throw CHWND_LAST_EXCEPT();
 	//show window
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
-
+	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 void Window::SetTitle(const std::string title)
@@ -93,6 +93,16 @@ std::optional<int> Window::ProcessMessages()
 		DispatchMessage(&msg);
 	}
 	return {};
+}
+
+//access the embedd graphics
+Graphics& Window::Gfx()
+{
+	if (!pGfx)
+	{
+		throw CHWND_NOGFX_EXCEPT();
+	}
+	return *pGfx;
 }
 
 Window::~Window()
@@ -267,26 +277,6 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-Window::Exception::Exception(int line, const char* file, HRESULT hr) noexcept
-	:ChiliException(line,file),hr(hr)
-{}
-
-const char* Window::Exception::what() const noexcept
-{
-	std::ostringstream oss;
-	oss << GetType() << std::endl
-		<< "[Error Code]" << GetErrorCode() << std::endl
-		<< "[Description]" << GetErrorString() << std::endl
-		<< GetOriginString();
-	whatBuffer = oss.str();
-	return whatBuffer.c_str();
-}
-
-const char* Window::Exception::GetType() const noexcept
-{
-	return "Chill Window Exception";
-}
-
 std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
 	char* pMsgBuf = nullptr;
@@ -294,7 +284,7 @@ std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		reinterpret_cast<LPSTR>(&pMsgBuf),0,nullptr
+		reinterpret_cast<LPSTR>(&pMsgBuf), 0, nullptr
 	);
 	if (nMsgLen == 0)
 	{
@@ -305,13 +295,39 @@ std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 	return errorString;
 }
 
+Window::HrException::HrException(int line, const char* file, HRESULT hr) noexcept
+	:Exception(line,file),hr(hr)
+{}
 
-HRESULT Window::Exception::GetErrorCode() const noexcept
+const char* Window::HrException::what() const noexcept
+{
+	std::ostringstream oss;
+	oss << GetType() << std::endl
+		<< "[Error Code]" << GetErrorCode() << std::endl
+		<< "[Description]" << GetErrorDescription() << std::endl
+		<< GetOriginString();
+	whatBuffer = oss.str();
+	return whatBuffer.c_str();
+}
+
+const char* Window::HrException::GetType() const noexcept
+{
+	return "Chill Window Exception";
+}
+
+
+
+HRESULT Window::HrException::GetErrorCode() const noexcept
 {
 	return hr;
 }
 
-std::string Window::Exception::GetErrorString() const noexcept
+std::string Window::HrException::GetErrorDescription() const noexcept
 {
-	return TranslateErrorCode(hr);
+	return Exception::TranslateErrorCode(hr);
+}
+
+const char* Window::NoGfxException::GetType() const noexcept
+{
+	return "Chili Window Exception [No Graphics]";
 }
