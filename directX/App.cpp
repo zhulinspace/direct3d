@@ -45,7 +45,8 @@ void APP::DoFrame()
 	std::ostringstream oss;
 	oss << "Time elapsed :" << t;
 	wnd.SetTitle(oss.str());*/
-	wnd.Gfx().ClearBuffer(1, 0, 0);
+	wnd.Gfx().ClearBuffer(0, 0, 0);
+	wnd.Gfx().DrawTestTriangle();
 	wnd.Gfx().EndFrame();
 
 }
