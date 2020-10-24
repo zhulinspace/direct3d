@@ -167,6 +167,9 @@
     <ClInclude Include="ChillUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Drawable\DrawableBase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DxError\DXTrace.inl">

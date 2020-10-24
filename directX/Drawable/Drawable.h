@@ -6,6 +6,8 @@ class Bindable;
 
 class Drawable
 {
+	template<class T>
+	friend class DrawableBase;
 public:
 	Drawable() = default;
 	Drawable(const Drawable&) = delete;
