@@ -92,6 +92,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -159,9 +160,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Bindable\IndexBuffer.cpp" />
+    <ClCompile Include="Bindable\InputLayout.cpp" />
+    <ClCompile Include="Bindable\PixelShader.cpp" />
+    <ClCompile Include="Bindable\Topology.cpp" />
+    <ClCompile Include="Bindable\TransformCbuf.cpp" />
+    <ClCompile Include="Bindable\VertexBuffer.cpp" />
+    <ClCompile Include="Bindable\VertexShader.cpp" />
     <ClCompile Include="chillException.cpp" />
     <ClCompile Include="ChillTimer.cpp" />
-    <ClCompile Include="dxerr.cpp" />
+    <ClCompile Include="ChillUtil.cpp" />
+    <ClCompile Include="Drawable\Box.cpp" />
+    <ClCompile Include="Drawable\Drawable.cpp" />
+    <ClCompile Include="DxError\dxerr.cpp" />
     <ClCompile Include="DxgiInfoManager.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="KeyBoard.cpp" />
@@ -172,46 +183,62 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="Bindable\Bindable.h" />
+    <ClInclude Include="Bindable\BindableCodex.h" />
+    <ClInclude Include="Bindable\ChillUtil.h" />
+    <ClInclude Include="Bindable\ConstantBuffers.h" />
+    <ClInclude Include="Bindable\IndexBuffer.h" />
+    <ClInclude Include="Bindable\InputLayout.h" />
+    <ClInclude Include="Bindable\PixelShader.h" />
+    <ClInclude Include="Bindable\Topology.h" />
+    <ClInclude Include="Bindable\TransformCbuf.h" />
+    <ClInclude Include="Bindable\VertexBuffer.h" />
+    <ClInclude Include="Bindable\VertexShader.h" />
     <ClInclude Include="chillException.h" />
     <ClInclude Include="ChillTimer.h" />
+    <ClInclude Include="ChillUtil.h" />
     <ClInclude Include="ChillWin.h" />
     <ClInclude Include="ChillWRL.h" />
-    <ClInclude Include="dxerr.h" />
+    <ClInclude Include="Drawable\Box.h" />
+    <ClInclude Include="Drawable\Drawable.h" />
+    <ClInclude Include="DxError\dxerr.h" />
     <ClInclude Include="DxgiInfoManager.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="KeyBoard.h" />
+    <ClInclude Include="Macros\GraphicsThrowMacros.h" />
+    <ClInclude Include="Macros\WindowsThrowMacros.h" />
     <ClInclude Include="Mouse.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource\resource.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowMessageMap.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="directX.rc" />
+    <ResourceCompile Include="resource\directX.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="chili.ico" />
+    <Image Include="resource\chili.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DXGetErrorDescription.inl" />
-    <None Include="DXGetErrorString.inl" />
-    <None Include="DXTrace.inl" />
+    <None Include="DxError\DXGetErrorDescription.inl" />
+    <None Include="DxError\DXGetErrorString.inl" />
+    <None Include="DxError\DXTrace.inl" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shader\PixelShader.hlsl">
+    <FxCompile Include="Shaders\PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Shaders/%(Filename).cso</ObjectFileOutput>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Shader\VertexShader.hlsl">
+    <FxCompile Include="Shaders\VertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Shaders/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

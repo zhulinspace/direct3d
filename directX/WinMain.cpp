@@ -2,6 +2,7 @@
 #include"WindowMessageMap.h"
 #include<sstream>
 
+//entry point
 int CALLBACK
 WinMain(HINSTANCE hInstance, HINSTANCE hPreviousInst,
     LPSTR lpszCmdLine, int nCmdShow)

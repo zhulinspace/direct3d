@@ -12,7 +12,8 @@
 //--------------------------------------------------------------------------------------
 
 #pragma once
-#include "ChillWin.h"
+
+#include<directX/ChillWin.h>
 #include <sal.h>
 
 #ifdef __cplusplus

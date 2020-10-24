@@ -1,6 +1,6 @@
 #include "Window.h"
 #include<sstream>
-#include"resource.h"
+#include<directX/resource/resource.h>
 Window::WindowClass Window::WindowClass::wndClass;
 
 Window::WindowClass::WindowClass() noexcept

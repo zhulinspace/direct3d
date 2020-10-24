@@ -1,5 +1,5 @@
 #include"Graphic.h"
-#include "dxerr.h"
+#include <directX/DxError/dxerr.h>
 #include<sstream>
 #include<d3dcompiler.h>
 #include <DirectXMath.h>
@@ -38,20 +38,29 @@ Graphics::Graphics(HWND hwnd)
 	//device, context ,swap chain,front/back buffer
 	HRESULT hr;
 	GFX_THROW_INFO(D3D11CreateDeviceAndSwapChain(
-		nullptr,
-		D3D_DRIVER_TYPE_HARDWARE,
-		nullptr,
+		nullptr,//indicating the default adapter
+		D3D_DRIVER_TYPE_HARDWARE,//determine whether direct3d should use hardware or software
+		nullptr,//It is used with the flag D3D_DRIVER_TYPE_SOFTWARE
 		//D3D11_CREATE_DEVICE_DEBUG,// ´ò¿ªµ÷ÊÔ²ã
-		swapCreateFlags,
-		nullptr,
-		0,
+		swapCreateFlags,//flags which we can alter how direct3d runs
+		nullptr,//D3D_feature_level
+		0,//UINT FeatureLevels
 		D3D11_SDK_VERSION,
 		&sd,
 		&pSwap,
 		&pDevice,
-		nullptr,
+		nullptr,// This is a pointer to a feature level variable.
 		&pContext
 	));
+
+	D3D11_VIEWPORT vp;
+	vp.Width = 800;
+	vp.Height = 600;
+	vp.MinDepth = 0;
+	vp.MaxDepth = 1;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	pContext->RSSetViewports(1u, &vp);
 
 	//gain access to texture subresource in swap chain(back buffer)
 	Microsoft::WRL::ComPtr<ID3D11Resource> pBackBuffer;
@@ -96,6 +105,7 @@ Graphics::Graphics(HWND hwnd)
 	//bind depth stencil view  to pipeline
 	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
 
+
 }
 
 
@@ -119,6 +129,33 @@ void Graphics::EndFrame()
 	}
 	
 }
+
+void Graphics::DrawIndexed(UINT count)noexcept
+{
+	GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
+}
+
+void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept
+{
+	projection = proj;
+}
+
+DirectX::XMMATRIX Graphics::GetProjection() const noexcept
+{
+	return projection;
+}
+
+
+
+//void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept
+//{
+//	projection = proj;
+//}
+//
+//DirectX::XMMATRIX Graphics::GetProjection() const noexcept
+//{
+//	return projection;
+//}
 
 void Graphics::DrawTestTriangle(float angle,float x,float z)
 {
@@ -277,13 +314,13 @@ void Graphics::DrawTestTriangle(float angle,float x,float z)
 	//create and bind pixel shader
 	wrl::ComPtr<ID3D11PixelShader>pPixelShader;
 	wrl::ComPtr<ID3DBlob>pBlob;
-	D3DReadFileToBlob(L"PixelShader.cso", &pBlob);
+	D3DReadFileToBlob(L"Shaders/PixelShader.cso", &pBlob);
 	pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader);
 	pContext->PSSetShader(pPixelShader.Get(), 0, 0);
 
 	//create and bind vertex shader
 	wrl::ComPtr<ID3D11VertexShader>pVertexShader;
-	D3DReadFileToBlob(L"VertexShader.cso",&pBlob);
+	D3DReadFileToBlob(L"Shaders/VertexShader.cso",&pBlob);
 	pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader);
 	pContext->VSSetShader(pVertexShader.Get(), 0, 0);
 
@@ -307,15 +344,15 @@ void Graphics::DrawTestTriangle(float angle,float x,float z)
 	
 	pContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	//configure viewport
-	D3D11_VIEWPORT vp;
-	vp.Width = 800;
-	vp.Height = 600;
-	vp.MinDepth = 0;
-	vp.MaxDepth = 1;
-	vp.TopLeftX = 0;
-	vp.TopLeftY = 0;
-	pContext->RSSetViewports(1u,&vp);
+	////configure viewport
+	//D3D11_VIEWPORT vp;
+	//vp.Width = 800;
+	//vp.Height = 600;
+	//vp.MinDepth = 0;
+	//vp.MaxDepth = 1;
+	//vp.TopLeftX = 0;
+	//vp.TopLeftY = 0;
+	//pContext->RSSetViewports(1u,&vp);
 	// all the debug information is generated at once when you issue the draw call
 	GFX_THROW_INFO_ONLY(pContext->DrawIndexed(std::size(indices), 0u,0u));
 }
