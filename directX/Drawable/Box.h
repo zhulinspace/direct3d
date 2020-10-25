@@ -1,7 +1,7 @@
 #pragma once
-#include<directX/Drawable/Drawable.h>
+#include<directX/Drawable/DrawableBase.h>
 #include<random>
-class Box : public Drawable
+class Box : public DrawableBase<Box>
 {
 public:
 	Box(Graphics& gfx, std::mt19937& rng,

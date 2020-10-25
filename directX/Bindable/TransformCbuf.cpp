@@ -2,17 +2,25 @@
 
 
 TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable& parent)
-	:vcbuf(gfx),parent(parent)
+	:parent(parent)
 {
+	if (!pvcbuf)
+	{
+		pvcbuf = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx);
+
+	}
 }
 
 void TransformCbuf::Bind(Graphics& gfx) noexcept
 {
-	vcbuf.Update(
+	pvcbuf->Update(
 		gfx,
 		DirectX::XMMatrixTranspose(
 			parent.GetTransformXM() * gfx.GetProjection()
 		)
 	);
-	vcbuf.Bind(gfx);
+	pvcbuf->Bind(gfx);
 }
+
+//because it is staic variable we got to declare it down here like this
+std::unique_ptr<VertexConstantBuffer<DirectX::XMMATRIX>>TransformCbuf::pvcbuf;

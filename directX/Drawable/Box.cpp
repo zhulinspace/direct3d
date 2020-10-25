@@ -25,86 +25,95 @@ Box::Box(Graphics& gfx, std::mt19937& rng,
 	theta(adist(rng)),
 	phi(adist(rng))
 {
-	struct Vertex
+	if (!IsStaticInitialized())
 	{
-		struct
+		struct Vertex
 		{
-			float x;
-			float y;
-			float z;
-		}pos;
+			struct
+			{
+				float x;
+				float y;
+				float z;
+			}pos;
+
+		};
+
+		const std::vector<Vertex>vertices =
+		{
+			{-1.0f,-1.0f,-1.0f},
+			{1.0f,-1.0f,-1.0f },
+			{-1.0f,1.0f,-1.0f},
+			{1.0f,1.0f,-1.0f },
+			{-1.0f,-1.0f,1.0f },
+			{1.0f,-1.0f,1.0f },
+			{-1.0f,1.0f,1.0f },
+			{1.0f,1.0f,1.0f  },
+		};
+		const std::vector<unsigned short> indices =
+		{
+			0,2,1,2,3,1,
+			1,3,5,3,7,5,
+			2,6,3,3,6,7,
+			4,5,7,4,7,6,
+			0,4,2,2,4,6,
+			0,1,4,1,5,4
+
+		};
+		//绑定vertex buffer
+		AddStaticBind(std::make_unique<VertexBuffer>(gfx, vertices));
+
+		//绑定indexbuffer
+		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
+
+		//bind vertexshader
+		auto pvs = std::make_unique<VertexShader>(gfx, "VertexSahder.cso");
+		auto pvsbc = pvs->GetBytecode();
+		AddStaticBind(std::move(pvs));
+
+		//bind pixel shader
+		AddStaticBind(std::make_unique<PixelShader>(gfx, "PixelShader.cso"));
+
+		struct ConstBuffer2
+		{
+			struct
+			{
+				float r;
+				float g;
+				float b;
+				float a;
+			}face_colors[6];
+		};
+
+		const ConstBuffer2 cb2 =
+		{
+			{
+				{1.0f,0.0f,1.0f},
+				{1.0f,0.0f,0.0f},
+				{0.0f,1.0f,0.0f},
+				{0.0f,0.0f,1.0f},
+				{1.0f,1.0f,0.0f},
+				{0.0f,1.0f,1.0f},
+			}
+		};
+		//bind pixel constant buffer
+		AddStaticBind(std::make_unique<PixelConstantBuffer<ConstBuffer2>>(gfx, cb2));
+		const std::vector<D3D11_INPUT_ELEMENT_DESC>ied =
+		{
+			{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+
+		};
+
+		AddStaticBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
+		AddStaticBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 		
-	};
-
-	const std::vector<Vertex>vertices =
+	}
+	else
 	{
-		{-1.0f,-1.0f,-1.0f},
-		{1.0f,-1.0f,-1.0f },
-		{-1.0f,1.0f,-1.0f},
-		{1.0f,1.0f,-1.0f },
-		{-1.0f,-1.0f,1.0f },
-		{1.0f,-1.0f,1.0f },
-		{-1.0f,1.0f,1.0f },
-		{1.0f,1.0f,1.0f  },
-	};
-	const std::vector<unsigned short> indices=
-	{
-		0,2,1,2,3,1,
-		1,3,5,3,7,5,
-		2,6,3,3,6,7,
-		4,5,7,4,7,6,
-		0,4,2,2,4,6,
-		0,1,4,1,5,4
-
-	};
-	//绑定vertex buffer
-	AddBind(std::make_unique<VertexBuffer>(gfx, vertices));
-
-	//绑定indexbuffer
-	AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
-
-	//bind vertexshader
-	auto pvs = std::make_unique<VertexShader>(gfx,"VertexSahder.cso");
-	auto pvsbc = pvs->GetBytecode();
-	AddBind(std::move(pvs));
-
-	//bind pixel shader
-	AddBind(std::make_unique<PixelShader>(gfx,"PixelShader.cso"));
-
-	struct ConstBuffer2
-	{
-		struct
-		{
-			float r;
-			float g;
-			float b;
-			float a;
-		}face_colors[6];
-	};
-
-	const ConstBuffer2 cb2 =
-	{
-		{
-			{1.0f,0.0f,1.0f},
-			{1.0f,0.0f,0.0f},
-			{0.0f,1.0f,0.0f},
-			{0.0f,0.0f,1.0f},
-			{1.0f,1.0f,0.0f},
-			{0.0f,1.0f,1.0f},
-		}
-	};
-	//bind pixel constant buffer
-	AddBind(std::make_unique<PixelConstantBuffer<ConstBuffer2>>(gfx, cb2));
-	const std::vector<D3D11_INPUT_ELEMENT_DESC>ied =
-	{
-		{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
-
-	};
-
-	AddBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
-	AddBind(std::make_unique<Topology>(gfx,D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+		SetIndexFromStatic();
+	}
+	
 	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
-
+	//every box has its own individual transform so we do not bind static
 
 
 }
