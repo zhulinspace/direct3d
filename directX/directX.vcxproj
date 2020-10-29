@@ -172,6 +172,8 @@
     <ClCompile Include="ChillUtil.cpp" />
     <ClCompile Include="Drawable\Box.cpp" />
     <ClCompile Include="Drawable\Drawable.cpp" />
+    <ClCompile Include="Drawable\Melon.cpp" />
+    <ClCompile Include="Drawable\Pyramid.cpp" />
     <ClCompile Include="DxError\dxerr.cpp" />
     <ClCompile Include="DxgiInfoManager.cpp" />
     <ClCompile Include="Graphic.cpp" />
@@ -188,6 +190,7 @@
     <ClInclude Include="Bindable\ChillUtil.h" />
     <ClInclude Include="Bindable\ConstantBuffers.h" />
     <ClInclude Include="Bindable\IndexBuffer.h" />
+    <ClInclude Include="ChiliMath.h" />
     <ClInclude Include="Bindable\InputLayout.h" />
     <ClInclude Include="Bindable\PixelShader.h" />
     <ClInclude Include="Bindable\Topology.h" />
@@ -202,6 +205,16 @@
     <ClInclude Include="Drawable\Box.h" />
     <ClInclude Include="Drawable\Drawable.h" />
     <ClInclude Include="Drawable\DrawableBase.h" />
+    <ClInclude Include="Drawable\Geometric primitives\Cone.h" />
+    <ClInclude Include="Drawable\Geometric primitives\Cube.h" />
+    <ClInclude Include="Drawable\Geometric primitives\IndexedTriangleList.h" />
+   
+    <ClInclude Include="Drawable\Geometric primitives\Plane.h" />
+    <ClInclude Include="Drawable\Geometric primitives\Prism.h" />
+ 
+    <ClInclude Include="Drawable\Geometric primitives\Sphere.h" />
+    <ClInclude Include="Drawable\Melon.h" />
+    <ClInclude Include="Drawable\Pyramid.h" />
     <ClInclude Include="DxError\dxerr.h" />
     <ClInclude Include="DxgiInfoManager.h" />
     <ClInclude Include="Graphic.h" />
@@ -225,6 +238,35 @@
     <None Include="DxError\DXTrace.inl" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\ColorBlendPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Shaders/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shaders\ColorBlendVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Shaders/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shaders\ColorIndexPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Shaders/%(Filename).cso</ObjectFileOutput>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\ColorIndexVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)/Shaders/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Shaders\PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

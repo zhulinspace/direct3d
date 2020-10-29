@@ -8,8 +8,8 @@ VertexShader::VertexShader(Graphics& gfx, const std::string& path)
 {
 	INFOMAN(gfx);
 
-	//GFX_THROW_INFO(D3DReadFileToBlob(ToWide("/Shaders/" + path).c_str(), &pBytecodeBlob));
-	GFX_THROW_INFO(D3DReadFileToBlob(L"Shaders/VertexShader.cso", &pBytecodeBlob));
+	GFX_THROW_INFO(D3DReadFileToBlob(ToWide("Shaders/" + path).c_str(), &pBytecodeBlob));
+	//GFX_THROW_INFO(D3DReadFileToBlob(L"Shaders/ColorIndexVS.cso", &pBytecodeBlob));
 
 	
 	GFX_THROW_INFO(GetDevice(gfx)->CreateVertexShader(

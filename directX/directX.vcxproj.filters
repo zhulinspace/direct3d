@@ -78,6 +78,18 @@
     <ClCompile Include="ChillUtil.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Drawable\Geometric primitives\Pyramid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable\Geometric primitives\Melon.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable\Melon.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable\Pyramid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowMessageMap.h">
@@ -170,6 +182,39 @@
     <ClInclude Include="Drawable\DrawableBase.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ChiliMath.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Geometric primitives\Cone.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Geometric primitives\Cube.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Geometric primitives\IndexedTriangleList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Geometric primitives\Prism.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Geometric primitives\Plane.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Geometric primitives\Sphere.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Geometric primitives\Pyramid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Geometric primitives\Melon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Melon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Pyramid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DxError\DXTrace.inl">
@@ -185,6 +230,10 @@
   <ItemGroup>
     <FxCompile Include="Shaders\PixelShader.hlsl" />
     <FxCompile Include="Shaders\VertexShader.hlsl" />
+    <FxCompile Include="Shaders\ColorIndexVS.hlsl" />
+    <FxCompile Include="Shaders\ColorIndexPS.hlsl" />
+    <FxCompile Include="Shaders\ColorBlendVS.hlsl" />
+    <FxCompile Include="Shaders\ColorBlendPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\chili.ico">

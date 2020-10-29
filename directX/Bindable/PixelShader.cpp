@@ -9,9 +9,9 @@ PixelShader::PixelShader(Graphics& gfx, const std::string& path)
 	INFOMAN(gfx);
 
 	Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
-	//GFX_THROW_INFO(D3DReadFileToBlob(ToWide("Shaders/" + path).c_str(), &pBlob));
+	GFX_THROW_INFO(D3DReadFileToBlob(ToWide("Shaders/" + path).c_str(), &pBlob));
 	
-	GFX_THROW_INFO(D3DReadFileToBlob(L"Shaders/PixelShader.cso", &pBlob));
+	//GFX_THROW_INFO(D3DReadFileToBlob(L"Shaders/PixelShader.cso", &pBlob));
 	GFX_THROW_INFO(GetDevice(gfx)->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
 }
 
