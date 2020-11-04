@@ -78,16 +78,28 @@
     <ClCompile Include="ChillUtil.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Drawable\Geometric primitives\Pyramid.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawable\Geometric primitives\Melon.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Drawable\Melon.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Drawable\Pyramid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GDIPlusManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Bindable\Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Bindable\Sampler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable\Sheet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable\SkinnedBox.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,16 +215,28 @@
     <ClInclude Include="Drawable\Geometric primitives\Sphere.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable\Geometric primitives\Pyramid.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawable\Geometric primitives\Melon.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Drawable\Melon.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Drawable\Pyramid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GDIPlusManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Bindable\Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Bindable\Sampler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\Sheet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable\SkinnedBox.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -234,6 +258,8 @@
     <FxCompile Include="Shaders\ColorIndexPS.hlsl" />
     <FxCompile Include="Shaders\ColorBlendVS.hlsl" />
     <FxCompile Include="Shaders\ColorBlendPS.hlsl" />
+    <FxCompile Include="Shaders\TexturePS.hlsl" />
+    <FxCompile Include="Shaders\TextureVS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\chili.ico">
