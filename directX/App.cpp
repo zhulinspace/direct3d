@@ -80,6 +80,7 @@ APP::APP():wnd(800,600,"the game box")
 
 	//const auto s = Surface::FromFile("images//test.png");
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+	wnd.Gfx().SetCamera(DirectX::XMMatrixTranslation(0.0f, 0.0f, 20.0f));
 
 }
 
@@ -141,8 +142,12 @@ void APP::DoFrame()
 		-wnd.mouse.GetPosY()/300.0f+1.0f
 	);*/
 
-	auto dt = timer.Mark();
-	wnd.Gfx().ClearBuffer(0.07f, 0.0f, 0.12f);
+	auto dt = timer.Mark()*speed_factor;
+	
+
+	
+	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
+
 	for (auto& b:drawables)
 	{
 		b->Update(dt);
@@ -150,18 +155,24 @@ void APP::DoFrame()
 		b->Draw(wnd.Gfx());
 	}
 
-	//imgui stuff
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-
-	static bool show_demo_window = true;
-	if (show_demo_window)
+	
+	/*if (show_demo_window)
 	{
 		ImGui::ShowDemoWindow(&show_demo_window);
 	}
 	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());*/
+	
+	//imgui window to control simulation speed
+	static char buffer[1024];
+
+	if (ImGui::Begin("simulation speed"))
+	{
+		ImGui::SliderFloat("speed factor", &speed_factor, 0.0f, 4.0f);
+		ImGui::Text("Appliaction average %.3f ms/frame (%.1f FPS)",1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		ImGui::InputText("Butts", buffer, sizeof(buffer));
+	}
+	ImGui::End();
 
 	//present
 	wnd.Gfx().EndFrame();
