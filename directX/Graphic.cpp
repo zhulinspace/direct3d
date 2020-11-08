@@ -130,8 +130,9 @@ void Graphics::EndFrame()
 	
 }
 
-void Graphics::DrawIndexed(UINT count)noexcept
+void Graphics::DrawIndexed(UINT count)
 {
+	
 	GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
 }
 

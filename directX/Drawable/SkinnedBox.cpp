@@ -8,7 +8,7 @@
 #include<directX/Bindable/InputLayout.h>
 #include<directX/Bindable/Topology.h>
 #include<directX/Bindable/TransformCbuf.h>
-
+#include<directX/Bindable/Sampler.h>
 #include<directX/Macros/GraphicsThrowMacros.h>
 
 #include <directX/Drawable/Geometric primitives/Cube.h>
@@ -51,7 +51,9 @@ SkinnedBox::SkinnedBox(Graphics& gfx,
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 
-		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\cube.png")));//read box.png went wrong
+		AddStaticBind(std::make_unique<Sampler>(gfx));// forget to add sampler
+
+		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\box.png")));
 
 		auto pvs = std::make_unique<VertexShader>(gfx,"TextureVS.cso");
 		auto pvsbc = pvs->GetBytecode();

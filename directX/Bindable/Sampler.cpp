@@ -16,7 +16,8 @@ Sampler::Sampler(Graphics& gfx)
 	
 }
 
-void Sampler::Bind(Graphics& gfx) noexcept
+void Sampler::Bind(Graphics& gfx) 
 {
-	GetContext(gfx)->PSSetSamplers(0, 1, pSampler.GetAddressOf());
+	INFOMAN_NOHR(gfx);
+	GFX_THROW_INFO_ONLY(GetContext(gfx)->PSSetSamplers(0, 1, pSampler.GetAddressOf()));
 }

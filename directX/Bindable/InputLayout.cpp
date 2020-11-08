@@ -15,8 +15,8 @@ InputLayout::InputLayout(Graphics& gfx, const std::vector<D3D11_INPUT_ELEMENT_DE
 
 }
 
-void InputLayout::Bind(Graphics& gfx) noexcept
+void InputLayout::Bind(Graphics& gfx) 
 {
-	INFOMAN(gfx);
+	INFOMAN_NOHR(gfx);
 	GFX_THROW_INFO_ONLY(GetContext(gfx)->IASetInputLayout(pInputLayout.Get()));
 }

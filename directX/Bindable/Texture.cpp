@@ -60,8 +60,9 @@ ID3D11Texture2D:
 A 2D texture interface manages texel data, which is structured memory
 */
 
-void Texture::Bind(Graphics& gfx) noexcept
+void Texture::Bind(Graphics& gfx) 
 {
 	//we bind the view to the pipeline
-	GetContext(gfx)->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf());
+	INFOMAN_NOHR(gfx);
+	GFX_THROW_INFO_ONLY(GetContext(gfx)->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf()));
 }

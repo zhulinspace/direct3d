@@ -11,7 +11,7 @@ TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable& parent)
 	}
 }
 
-void TransformCbuf::Bind(Graphics& gfx) noexcept
+void TransformCbuf::Bind(Graphics& gfx) 
 {
 	pvcbuf->Update(
 		gfx,

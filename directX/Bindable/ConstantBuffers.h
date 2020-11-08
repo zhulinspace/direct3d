@@ -68,7 +68,7 @@ class VertexConstantBuffer : public ConstantBuffer<C>
 	using Bindable::GetContext;
 public:
 	using ConstantBuffer<C>::ConstantBuffer;
-	void Bind(Graphics& gfx) noexcept override
+	void Bind(Graphics& gfx)  override
 	{
 		INFOMAN_NOHR(gfx);
 		GFX_THROW_INFO_ONLY(GetContext(gfx)->VSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf()));
@@ -105,7 +105,7 @@ class PixelConstantBuffer : public ConstantBuffer<C>
 	using Bindable::GetContext;
 public:
 	using ConstantBuffer<C>::ConstantBuffer;
-	void Bind(Graphics& gfx) noexcept override
+	void Bind(Graphics& gfx)  override
 	{
 		INFOMAN_NOHR(gfx);
 		GFX_THROW_INFO_ONLY(GetContext(gfx)->PSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf()));

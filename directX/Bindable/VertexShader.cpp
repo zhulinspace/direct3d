@@ -20,7 +20,7 @@ VertexShader::VertexShader(Graphics& gfx, const std::string& path)
 	));
 }
 
-void VertexShader::Bind(Graphics& gfx)noexcept 
+void VertexShader::Bind(Graphics& gfx) 
 {
 	INFOMAN_NOHR(gfx);
 	GFX_THROW_INFO_ONLY(GetContext(gfx)->VSSetShader(pVertexShader.Get(), nullptr, 0u));
