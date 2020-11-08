@@ -1,6 +1,8 @@
 #include "Window.h"
 #include<sstream>
 #include<directX/resource/resource.h>
+#include"imgui/imgui_impl_win32.h"
+
 Window::WindowClass Window::WindowClass::wndClass;
 
 Window::WindowClass::WindowClass() noexcept
@@ -71,6 +73,11 @@ Window::Window(int width, int height, const char* name)
 	if (hWnd == nullptr)throw CHWND_LAST_EXCEPT();
 	//show window
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+
+	//init Imgui Win32 Impl
+	ImGui_ImplWin32_Init(hWnd);
+	//but these init may cause problem if we wanna make mupltiwindow
+
 	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
@@ -107,7 +114,7 @@ Graphics& Window::Gfx()
 
 Window::~Window()
 {
-	
+	ImGui_ImplWin32_Shutdown();
 	DestroyWindow(hWnd);
 }
 
@@ -150,6 +157,11 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+	{
+		return true;
+	}
+
 	switch (msg)
 	{
 		// we don't want the DefProc to handle this message because

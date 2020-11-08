@@ -3,6 +3,8 @@
 #include<sstream>
 #include<d3dcompiler.h>
 #include <DirectXMath.h>
+#include"imgui/imgui_impl_dx11.h"
+
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
 
@@ -61,6 +63,9 @@ Graphics::Graphics(HWND hwnd)
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 	pContext->RSSetViewports(1u, &vp);
+
+	//init imgui d3d impl
+	ImGui_ImplDX11_Init(pDevice.Get(), pContext.Get());
 
 	//gain access to texture subresource in swap chain(back buffer)
 	Microsoft::WRL::ComPtr<ID3D11Resource> pBackBuffer;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Window.h"
 #include "ChillTimer.h"
-
+#include"ImguiManager.h"
 class APP
 {
 public:
@@ -11,6 +11,7 @@ public:
 private:
 	void DoFrame();
 private:
+	ImguiManager imgui;
 	Window wnd;
 	ChillTimer timer;
 	//std::vector<std::unique_ptr<class Box>>boxes;
