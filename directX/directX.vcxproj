@@ -169,6 +169,7 @@
     <ClCompile Include="Bindable\TransformCbuf.cpp" />
     <ClCompile Include="Bindable\VertexBuffer.cpp" />
     <ClCompile Include="Bindable\VertexShader.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="chillException.cpp" />
     <ClCompile Include="ChillTimer.cpp" />
     <ClCompile Include="ChillUtil.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Bindable\IndexBuffer.h" />
     <ClInclude Include="Bindable\Sampler.h" />
     <ClInclude Include="Bindable\Texture.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="ChiliMath.h" />
     <ClInclude Include="Bindable\InputLayout.h" />
     <ClInclude Include="Bindable\PixelShader.h" />

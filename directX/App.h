@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "ChillTimer.h"
 #include"ImguiManager.h"
+#include"Camera.h"
 class APP
 {
 public:
@@ -14,6 +15,7 @@ private:
 	ImguiManager imgui;
 	Window wnd;
 	ChillTimer timer;
+	Camera  cam;
 	//std::vector<std::unique_ptr<class Box>>boxes;
 	std::vector<std::unique_ptr<class Drawable>> drawables;
 	static constexpr size_t nDrawables = 180;

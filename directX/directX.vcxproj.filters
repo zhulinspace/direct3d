@@ -123,6 +123,9 @@
     <ClCompile Include="ImguiManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowMessageMap.h">
@@ -285,6 +288,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ImguiManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
