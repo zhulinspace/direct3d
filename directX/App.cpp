@@ -18,7 +18,9 @@
 GDIPlusManager gdipm;
 
 
-APP::APP():wnd(800,600,"the game box")
+APP::APP()
+	:wnd(800,600,"the game box"),
+	light(wnd.Gfx())
 {
 
 	class Factory
@@ -30,7 +32,7 @@ APP::APP():wnd(800,600,"the game box")
 		{}
 		std::unique_ptr<Drawable> operator()()
 		{
-			switch (typedist(rng))
+			/*switch (typedist(rng))
 			{
 			case 0:
 				return std::make_unique<Pyramid>(
@@ -60,7 +62,12 @@ APP::APP():wnd(800,600,"the game box")
 			default:
 				assert(false && "bad drawable type in factory");
 				return {};
-			}
+			}*/
+			return std::make_unique<Box>(
+				gfx, rng, adist, ddist,
+				odist, rdist, bdist
+				);
+
 		}
 	private:
 		Graphics& gfx;
@@ -81,7 +88,7 @@ APP::APP():wnd(800,600,"the game box")
 	//const auto s = Surface::FromFile("images//test.png");
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 	wnd.Gfx().SetCamera(DirectX::XMMatrixTranslation(0.0f, 0.0f, 20.0f));
-
+	
 }
 
 APP::~APP()
@@ -148,14 +155,14 @@ void APP::DoFrame()
 	
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
 	wnd.Gfx().SetCamera(cam.GetMatrix());
-
+	light.Bind(wnd.Gfx());
 	for (auto& b:drawables)
 	{
 		b->Update(dt);
 		b->Update(wnd.kbd.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
 		b->Draw(wnd.Gfx());
 	}
-
+	light.Draw(wnd.Gfx());
 	
 	/*if (show_demo_window)
 	{
@@ -175,6 +182,7 @@ void APP::DoFrame()
 	}
 	ImGui::End();
 	cam.SpawnControlWindow();
+	light.SpawnControlWindow();
 	//present
 	wnd.Gfx().EndFrame();
 

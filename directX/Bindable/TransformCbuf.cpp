@@ -6,23 +6,24 @@ TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable& parent)
 {
 	if (!pvcbuf)
 	{
-		pvcbuf = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx);
+		pvcbuf = std::make_unique<VertexConstantBuffer<Transforms>>(gfx);
 
 	}
 }
 
 void TransformCbuf::Bind(Graphics& gfx) 
 {
-	pvcbuf->Update(
-		gfx,
+	const auto model = parent.GetTransformXM();
+	const Transforms tf =
+	{
+		DirectX::XMMatrixTranspose(model),
 		DirectX::XMMatrixTranspose(
-			parent.GetTransformXM() *
-			gfx.GetCamera() *
-			gfx.GetProjection()
+			model * gfx.GetCamera()*gfx.GetProjection()
 		)
-	);
+	};
+	pvcbuf->Update(gfx,tf);
 	pvcbuf->Bind(gfx);
 }
 
 //because it is staic variable we got to declare it down here like this
-std::unique_ptr<VertexConstantBuffer<DirectX::XMMATRIX>>TransformCbuf::pvcbuf;
+std::unique_ptr<VertexConstantBuffer<TransformCbuf::Transforms>>TransformCbuf::pvcbuf;

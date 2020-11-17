@@ -9,8 +9,17 @@ public:
 	TransformCbuf(Graphics& gfx, const Drawable& parent);
 	void Bind(Graphics& gfx) override;
 private:
-	//VertexConstantBuffer<DirectX::XMMATRIX>vcbuf;
-	static std::unique_ptr < VertexConstantBuffer<DirectX::XMMATRIX>>pvcbuf;
+
+	struct Transforms
+	{
+		DirectX::XMMATRIX modelViewProj;
+		DirectX::XMMATRIX model;
+	};
+
+	
+	static std::unique_ptr < VertexConstantBuffer<Transforms>>pvcbuf;
 	//use static veretxconstbuffer to increase effenicy
 	const Drawable& parent;
+
+	
 };
