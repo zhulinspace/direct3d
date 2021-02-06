@@ -11,7 +11,6 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPreviousInst,
    
     try 
     {
-
         return APP{}.Go();
     }
     catch (const ChiliException &e)

@@ -63,9 +63,10 @@ APP::APP()
 				assert(false && "bad drawable type in factory");
 				return {};
 			}*/
+			const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
 			return std::make_unique<Box>(
 				gfx, rng, adist, ddist,
-				odist, rdist, bdist
+				odist, rdist, bdist,mat
 				);
 
 		}
@@ -80,6 +81,7 @@ APP::APP()
 		std::uniform_int_distribution<int> latdist{ 5,20 };
 		std::uniform_int_distribution<int> longdist{ 10,40 };
 		std::uniform_int_distribution<int> typedist{ 0,4 };
+		std::uniform_real_distribution<float> cdist{ 0.0f,1.0f };
 	};
 	Factory f(wnd.Gfx());
 	drawables.reserve(nDrawables);
@@ -133,6 +135,7 @@ void APP::DoFrame()
 			break;
 		}
 	}*/
+	
 	/*const float t = timer.Peek();
 	std::ostringstream oss;
 	oss << "Time elapsed :" << t;
